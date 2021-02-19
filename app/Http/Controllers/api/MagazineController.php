@@ -198,7 +198,7 @@ class MagazineController extends Controller
      * @param $mime
      * @return false|int|string
      */
-    public function mime2ext($mime){
+     protected function mime2ext($mime){
         $all_mimes = '{"png":["image\/png","image\/x-png"],"bmp":["image\/bmp","image\/x-bmp",
         "image\/x-bitmap","image\/x-xbitmap","image\/x-win-bitmap","image\/x-windows-bmp",
         "image\/ms-bmp","image\/x-ms-bmp","application\/bmp","application\/x-bmp",
@@ -255,7 +255,7 @@ class MagazineController extends Controller
      * @param $base64Image
      * @return \Exception|float|int
      */
-    public function getBase64ImageSize($base64Image)
+    protected function getBase64ImageSize($base64Image)
     {
         try{
             $size_in_bytes = (int) (strlen(rtrim($base64Image, '=')) * 3 / 4);
