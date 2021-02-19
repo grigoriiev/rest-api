@@ -38,9 +38,9 @@ class MagazineController extends Controller
 
             $image = $request->input('img');  // your base64 encoded
 
-            $size = getimagesize($image);
+            $size = $this->getBase64ImageSize($image);
 
-            if($size>2048){
+            if($size>2){
 
                 return response()->json(['fail'=>'big size content'],400);
             }
@@ -109,9 +109,9 @@ class MagazineController extends Controller
 
             $image = $request->input('img');  // your base64 encoded
 
-            $size = getimagesize($image);
+            $size = $this->getBase64ImageSize($image);
 
-            if($size>2048){
+            if($size>2){
 
                 return response()->json(['fail'=>'big size content'],400);
             }
@@ -194,6 +194,10 @@ class MagazineController extends Controller
     /*
     to take mime type as a parameter and return the equivalent extension
     */
+    /**
+     * @param $mime
+     * @return false|int|string
+     */
     public function mime2ext($mime){
         $all_mimes = '{"png":["image\/png","image\/x-png"],"bmp":["image\/bmp","image\/x-bmp",
         "image\/x-bitmap","image\/x-xbitmap","image\/x-win-bitmap","image\/x-windows-bmp",
@@ -245,6 +249,24 @@ class MagazineController extends Controller
             if(array_search($mime,$value) !== false) return $key;
         }
         return false;
+    }
+
+    /**
+     * @param $base64Image
+     * @return \Exception|float|int
+     */
+    public function getBase64ImageSize($base64Image)
+    {
+        try{
+            $size_in_bytes = (int) (strlen(rtrim($base64Image, '=')) * 3 / 4);
+            $size_in_kb    = $size_in_bytes / 1024;
+            $size_in_mb    = $size_in_kb / 1024;
+
+            return $size_in_mb;
+        }
+        catch(\Exception $e){
+            return $e;
+        }
     }
 
 
