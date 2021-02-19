@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\AuthorController;
+use App\Http\Controllers\api\MagazineController;
 use Illuminate\Support\Facades\Route;
 
 /*
