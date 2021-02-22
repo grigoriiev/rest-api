@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MagazineCollection;
 use App\Models\Magazine;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class MagazineController extends Controller
     $request->validate([
             'name' => 'required|string',
             'img' => 'required|string',
-            'date' => 'required|string|date'
+            'date' => 'required|string'
 
         ]
     );
@@ -92,7 +93,7 @@ class MagazineController extends Controller
         $request->validate([
                 'name'=>'required|string',
                 'img'=>'required|string',
-                'date' =>'required|string|date'
+                'date' =>'required|string'
 
             ]
         );
@@ -177,17 +178,8 @@ class MagazineController extends Controller
      */
     public function list(Request $request){
 
-        $page= $request->input('page');
 
-        $perPage= $request->input('perPage');
-        if (!$request->accepts('application/json')) {
-            return response()->json(['fail'=>'wrong content type '],400);
-        }
-
-        $magazine=Magazine::all();
-
-        return response()->json($magazine,200);
-
+        new MagazineCollection(Magazine::paginate());
 
     }
 

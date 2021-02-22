@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Resources\AuthorCollection;
 use App\Models\Author;
 
 use Illuminate\Http\Request;
@@ -93,17 +94,13 @@ class AuthorController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return AuthorCollection
      */
     public function list(Request $request){
 
-        $page= $request->input('page');
 
-        $perPage= $request->input('perPage');
 
-        $author=Author::all();
-
-        return response()->json($author,200);
+        return  new AuthorCollection((Author::paginate()));
 
 
     }
