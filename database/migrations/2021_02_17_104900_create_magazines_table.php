@@ -18,7 +18,7 @@ class CreateMagazinesTable extends Migration
             $table->string('name');
             $table->string('short_description')->nullable();
             $table->string('img');
-            $table->date('date');
+            $table->string('date');
 
         });
     }
