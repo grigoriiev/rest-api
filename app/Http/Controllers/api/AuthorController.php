@@ -98,7 +98,7 @@ class AuthorController extends Controller
      */
     public function list(Request $request){
 
-                  $page=$request->input("page");
+                  $page=$request->input("per_page");
 
         return  new AuthorCollection((Author::paginate($page)));
 
