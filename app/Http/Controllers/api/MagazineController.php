@@ -178,8 +178,8 @@ class MagazineController extends Controller
      */
     public function list(Request $request){
 
-       $page=$request->input("per_page")
-           
+       $page=$request->input("per_page");
+
         new MagazineCollection(Magazine::paginate($page));
 
     }
